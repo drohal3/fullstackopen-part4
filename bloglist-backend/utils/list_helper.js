@@ -25,7 +25,7 @@ const mostLikes = (blogs) => {
   return lodash.reduce(grouped, (result, value, key) => {
     let likes = value.reduce((prev, val) => prev + val.likes, 0)
     return result.likes > likes ? result : {
-      name: key, likes: likes
+      author: key, likes: likes
     }
   }, {})
 }
