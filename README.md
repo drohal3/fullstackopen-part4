@@ -66,3 +66,31 @@ One best practice is to commit your code every time it is in a stable state. Thi
 
 **Solution:**
 Refactored bloglist-backend app.
+
+## 4.3: helper functions and unit tests, step1
+**Task:**
+First define a dummy function that receives an array of blog posts as a parameter and always returns the value 1. The contents of the list_helper.js file at this point should be the following:
+```
+const dummy = (blogs) => {
+// ...
+}
+
+module.exports = {
+dummy
+}
+```
+Verify that your test configuration works with the following test:
+```
+const listHelper = require('../utils/list_helper')
+
+test('dummy returns one', () => {
+const blogs = []
+
+const result = listHelper.dummy(blogs)
+expect(result).toBe(1)
+})
+```
+
+**Solution:**
+Test implemented in test.test.js.
+
