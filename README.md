@@ -141,3 +141,21 @@ Write the tests for this exercise inside of a new describe block. Do the same fo
 
 **Solution:**
 Implemented test
+
+## Exercise 4.6*: helper functions and unit tests, step4
+**Task:**
+This and the next exercise are a little bit more challenging. Finishing these two exercises is not required in order to advance in the course material, so it may be a good idea to return to these once you're done going through the material for this part in its entirety.
+
+Finishing this exercise can be done without the use of additional libraries. However, this exercise is a great opportunity to learn how to use the [Lodash](https://lodash.com/) library.
+
+Define a function called mostBlogs that receives an array of blogs as a parameter. The function returns the author who has the largest amount of blogs. The return value also contains the number of blogs the top author has:
+```
+{
+author: "Robert C. Martin",
+blogs: 3
+}
+```
+If there are many top bloggers, then it is enough to return any one of them.
+
+**Solution:**
+Implemented the test.
