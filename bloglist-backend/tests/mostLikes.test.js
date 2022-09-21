@@ -1,15 +1,7 @@
 const listHelper = require('../utils/list_helper')
 
-describe('productive author', () => {
+describe('favorite author', () => {
   const blogs = [
-    {
-      _id: "5a422aa71b54a676234d17f8",
-      title: "Go To Statement Considered Harmful",
-      author: "Edsger W. Dijkstra",
-      url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
-      likes: 5,
-      __v: 0
-    },
     {
       _id: "5a422b3a1b54a676234d17f9",
       title: "Canonical string reduction",
@@ -49,11 +41,19 @@ describe('productive author', () => {
       url: "http://blog.cleancoder.com/uncle-bob/2016/05/01/TypeWars.html",
       likes: 2,
       __v: 0
+    },
+    {
+      _id: "5a422aa71b54a676234d17f8",
+      title: "Go To Statement Considered Harmful",
+      author: "Edsger W. Dijkstra",
+      url: "http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html",
+      likes: 5,
+      __v: 0
     }
   ]
 
-  test('The most productive author.', () => {
-    const result = listHelper.mostBlogs(blogs)
-    expect(result).toEqual({ name: 'Robert C. Martin', blogs: 3 })
+  test('The most popular author.', () => {
+    const result = listHelper.mostLikes(blogs)
+    expect(result).toEqual({ name: 'Edsger W. Dijkstra', likes: 17 })
   })
 })

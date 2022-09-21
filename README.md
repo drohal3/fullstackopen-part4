@@ -159,3 +159,16 @@ If there are many top bloggers, then it is enough to return any one of them.
 
 **Solution:**
 Implemented the test.
+
+## Exercise 4.7*: helper functions and unit tests, step5
+Define a function called mostLikes that receives an array of blogs as its parameter. The function returns the author, whose blog posts have the largest amount of likes. The return value also contains the total number of likes that the author has received:
+```
+{
+author: "Edsger W. Dijkstra",
+likes: 17
+}
+```
+If there are many top bloggers, then it is enough to show any one of them.
+
+**Solution:**
+Implemented the test.

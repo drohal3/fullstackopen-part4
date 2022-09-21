@@ -16,9 +16,20 @@ const mostBlogs = (blogs) => {
   let grouped = lodash.groupBy(blogs, blog => blog.author)
   return lodash.reduce(grouped, (result, value, key) => result.blogs > value.length ? result : {
     name: key, blogs: value.length
-  })
+  }, {})
+}
+
+const mostLikes = (blogs) => {
+  let grouped = lodash.groupBy(blogs, blog => blog.author)
+  console.log(grouped)
+  return lodash.reduce(grouped, (result, value, key) => {
+    let likes = value.reduce((prev, val) => prev + val.likes, 0)
+    return result.likes > likes ? result : {
+      name: key, likes: likes
+    }
+  }, {})
 }
 
 module.exports = {
-  dummy, totalLikes, favoriteBlog, mostBlogs
+  dummy, totalLikes, favoriteBlog, mostBlogs, mostLikes
 }
