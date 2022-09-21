@@ -92,7 +92,7 @@ expect(result).toBe(1)
 ```
 
 **Solution:**
-Test implemented in test.test.js.
+Implemented test.
 
 ## Exercise 4.4: helper functions and unit tests, step2
 **Task:**
@@ -121,4 +121,23 @@ expect(result).toBe(5)
 })
 ```
 **Solution:**
-Test implemented in totalLikes.test.js.
+Implemented test.
+
+## Exercise 4.5*: helper functions and unit tests, step3
+**Task:**
+Define a new favoriteBlog function that receives a list of blogs as a parameter. The function finds out which blog has most likes. If there are many top favorites, it is enough to return one of them.
+
+The value returned by the function could be in the following format:
+```
+{
+title: "Canonical string reduction",
+author: "Edsger W. Dijkstra",
+likes: 12
+}
+```
+NB when you are comparing objects, the toEqual method is probably what you want to use, since the toBe tries to verify that the two values are the same value, and not just that they contain the same properties.
+
+Write the tests for this exercise inside of a new describe block. Do the same for the remaining exercises as well.
+
+**Solution:**
+Implemented test
