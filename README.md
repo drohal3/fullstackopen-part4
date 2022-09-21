@@ -94,3 +94,31 @@ expect(result).toBe(1)
 **Solution:**
 Test implemented in test.test.js.
 
+## Exercise 4.4: helper functions and unit tests, step2
+**Task:**
+Define a new totalLikes function that receives a list of blog posts as a parameter. The function returns the total sum of likes in all of the blog posts.
+
+Write appropriate tests for the function. It's recommended to put the tests inside of a describe block, so that the test report output gets grouped nicely
+
+Defining test inputs for the function can be done like this:
+```
+describe('total likes', () => {
+const listWithOneBlog = [
+{
+_id: '5a422aa71b54a676234d17f8',
+title: 'Go To Statement Considered Harmful',
+author: 'Edsger W. Dijkstra',
+url: 'http://www.u.arizona.edu/~rubinson/copyright_violations/Go_To_Considered_Harmful.html',
+likes: 5,
+__v: 0
+}
+]
+
+test('when list has only one blog, equals the likes of that', () => {
+const result = listHelper.totalLikes(listWithOneBlog)
+expect(result).toBe(5)
+})
+})
+```
+**Solution:**
+Test implemented in totalLikes.test.js.
