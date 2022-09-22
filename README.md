@@ -201,3 +201,11 @@ Once the test is finished, refactor the operation to use async/await instead of 
 
 **Solution:**
 New test written, controller already refactor
+
+## 4.11*: Blog list tests, step4
+**Task:**
+Write a test that verifies that if the likes property is missing from the request, it will default to the value 0. Do not test the other properties of the created blogs yet.
+
+Make the required changes to the code so that it passes the test.
+**Solution:**
+New test written and router modified.

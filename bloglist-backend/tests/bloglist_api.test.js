@@ -63,6 +63,21 @@ test('a new blog is successfully saved in database', async () => {
     .expect('Content-Type', /application\/json/)
   const response = await api.get('/api/blogs')
   expect(response.body).toHaveLength(initialBlogs.body.length + 1)
-  const mappedResponse = response.body.map(({title,author,url,likes}) => ({title,author,url,likes}))
+  const mappedResponse = response.body.map(({title, author, url, likes}) => ({title, author, url, likes}))
   expect(mappedResponse).toContainEqual(newBlog)
+})
+
+test('missing likes property fallbacks to 0', async () => {
+  const blogToAdd = {
+    "title": "new blog",
+    "author": "test new blog",
+    "url": "http://newblog.com"
+  }
+
+  let blogObject = new Blog(blogToAdd)
+  await blogObject.save()
+  const response = await api.get('/api/blogs')
+  const mappedResponse = response.body.map(({title, author, url, likes}) => ({title, author, url, likes}))
+  blogToAdd.likes = 0;
+  expect(mappedResponse).toContainEqual(blogToAdd)
 })
