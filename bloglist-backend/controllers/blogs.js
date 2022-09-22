@@ -12,6 +12,9 @@ blogsRouter.get('/', async (request, response, next) => {
 
 blogsRouter.post('/', async (request, response, next) => {
   try {
+    if (request.body.title === undefined && request.body.url === undefined) {
+      response.status(400).json({ error: 'title or url required' })
+    }
     const blog = new Blog(request.body)
     const newBlog = await blog.save()
     response.status(201).json(newBlog)

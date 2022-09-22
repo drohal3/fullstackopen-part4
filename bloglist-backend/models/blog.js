@@ -15,7 +15,7 @@ mongoose.connect(url)
   })
 
 const blogSchema = new mongoose.Schema({
-  title: String, author: String, url: String, likes: {type: Number, default: 0}
+  title: {type:String}, author: String, url: {type: String}, likes: {type: Number, default: 0}
 })
 
 blogSchema.set('toJSON', {

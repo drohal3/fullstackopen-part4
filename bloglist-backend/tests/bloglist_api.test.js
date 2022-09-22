@@ -74,10 +74,18 @@ test('missing likes property fallbacks to 0', async () => {
     "url": "http://newblog.com"
   }
 
-  let blogObject = new Blog(blogToAdd)
-  await blogObject.save()
+  await api.post('/api/blogs').send(blogToAdd)
   const response = await api.get('/api/blogs')
   const mappedResponse = response.body.map(({title, author, url, likes}) => ({title, author, url, likes}))
   blogToAdd.likes = 0;
   expect(mappedResponse).toContainEqual(blogToAdd)
+})
+
+test('missing title and url results in 400 error code', async () => {
+  const blogToAdd = {
+    "author": "test new blog",
+    "likes": 2
+  }
+
+  await api.post('/api/blogs').send(blogToAdd).expect(400)
 })
