@@ -191,4 +191,13 @@ Write a test that verifies that the unique identifier property of the blog posts
 Make the required changes to the code so that it passes the test. The toJSON method discussed in part 3 is an appropriate place for defining the id parameter.
 
 **Solution:**
-_id to id transformation already done in previous exercises, new test implemented. 
+_id to id transformation already done in previous exercises, new test implemented.
+
+## Exercise 4.10: Blog list tests, step3
+**Task:**
+Write a test that verifies that making an HTTP POST request to the /api/blogs url successfully creates a new blog post. At the very least, verify that the total number of blogs in the system is increased by one. You can also verify that the content of the blog post is saved correctly to the database.
+
+Once the test is finished, refactor the operation to use async/await instead of promises.
+
+**Solution:**
+New test written, controller already refactor

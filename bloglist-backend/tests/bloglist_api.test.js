@@ -36,7 +36,6 @@ test('blogs are returned as json', async () => {
 
 test('all blogs are returned', async () => {
   const response = await api.get('/api/blogs')
-
   expect(response.body).toHaveLength(initialBlogs.length)
 })
 
@@ -47,4 +46,23 @@ afterAll(() => {
 test('id is the identifier', async () => {
   const response = await api.get('/api/blogs')
   expect(response.body[0].id).toBeDefined()
+})
+
+test('a new blog is successfully saved in database', async () => {
+  const initialBlogs = await api.get('/api/blogs')
+
+  const newBlog = {
+    "title": "new blog",
+    "author": "test new blog",
+    "url": "http://newblog.com",
+    "likes": 12
+  }
+
+  // let blogObject = new Blog(newBlog)
+  await api.post('/api/blogs').send(newBlog).expect(201)
+    .expect('Content-Type', /application\/json/)
+  const response = await api.get('/api/blogs')
+  expect(response.body).toHaveLength(initialBlogs.body.length + 1)
+  const mappedResponse = response.body.map(({title,author,url,likes}) => ({title,author,url,likes}))
+  expect(mappedResponse).toContainEqual(newBlog)
 })
