@@ -27,65 +27,78 @@ beforeEach(async () => {
   await blogObject.save()
 })
 
-test('blogs are returned as json', async () => {
-  await api
-    .get('/api/blogs')
-    .expect(200)
-    .expect('Content-Type', /application\/json/)
-})
-
-test('all blogs are returned', async () => {
-  const response = await api.get('/api/blogs')
-  expect(response.body).toHaveLength(initialBlogs.length)
-})
-
 afterAll(() => {
   mongoose.connection.close()
 })
 
-test('id is the identifier', async () => {
-  const response = await api.get('/api/blogs')
-  expect(response.body[0].id).toBeDefined()
+describe('blog api', () => {
+  test('blogs are returned as json', async () => {
+    await api
+      .get('/api/blogs')
+      .expect(200)
+      .expect('Content-Type', /application\/json/)
+  })
+
+  test('all blogs are returned', async () => {
+    const response = await api.get('/api/blogs')
+    expect(response.body).toHaveLength(initialBlogs.length)
+  })
+
+
+
+  test('id is the identifier', async () => {
+    const response = await api.get('/api/blogs')
+    expect(response.body[0].id).toBeDefined()
+  })
+
+  test('a new blog is successfully saved in database', async () => {
+    const initialBlogs = await api.get('/api/blogs')
+
+    const newBlog = {
+      "title": "new blog",
+      "author": "test new blog",
+      "url": "http://newblog.com",
+      "likes": 12
+    }
+
+    // let blogObject = new Blog(newBlog)
+    await api.post('/api/blogs').send(newBlog).expect(201)
+      .expect('Content-Type', /application\/json/)
+    const response = await api.get('/api/blogs')
+    expect(response.body).toHaveLength(initialBlogs.body.length + 1)
+    const mappedResponse = response.body.map(({title, author, url, likes}) => ({title, author, url, likes}))
+    expect(mappedResponse).toContainEqual(newBlog)
+  })
+
+  test('missing likes property fallbacks to 0', async () => {
+    const blogToAdd = {
+      "title": "new blog",
+      "author": "test new blog",
+      "url": "http://newblog.com"
+    }
+
+    await api.post('/api/blogs').send(blogToAdd)
+    const response = await api.get('/api/blogs')
+    const mappedResponse = response.body.map(({title, author, url, likes}) => ({title, author, url, likes}))
+    blogToAdd.likes = 0;
+    expect(mappedResponse).toContainEqual(blogToAdd)
+  })
+
+  test('missing title and url results in 400 error code', async () => {
+    const blogToAdd = {
+      "author": "test new blog",
+      "likes": 2
+    }
+    await api.post('/api/blogs').send(blogToAdd).expect(400)
+  })
+
+  test('Deleted blog is deleted.', async () => {
+    const initDbResponse = await api.get('/api/blogs')
+    const blogToRemove = initDbResponse.body[0]
+    await api.delete(`/api/blogs/${blogToRemove.id}`)
+    const response = await api.get('/api/blogs')
+    expect(response.body).toHaveLength(initDbResponse.body.length - 1)
+    expect(response.body).not.toContainEqual(blogToRemove)
+  })
 })
 
-test('a new blog is successfully saved in database', async () => {
-  const initialBlogs = await api.get('/api/blogs')
-
-  const newBlog = {
-    "title": "new blog",
-    "author": "test new blog",
-    "url": "http://newblog.com",
-    "likes": 12
-  }
-
-  // let blogObject = new Blog(newBlog)
-  await api.post('/api/blogs').send(newBlog).expect(201)
-    .expect('Content-Type', /application\/json/)
-  const response = await api.get('/api/blogs')
-  expect(response.body).toHaveLength(initialBlogs.body.length + 1)
-  const mappedResponse = response.body.map(({title, author, url, likes}) => ({title, author, url, likes}))
-  expect(mappedResponse).toContainEqual(newBlog)
-})
-
-test('missing likes property fallbacks to 0', async () => {
-  const blogToAdd = {
-    "title": "new blog",
-    "author": "test new blog",
-    "url": "http://newblog.com"
-  }
-
-  await api.post('/api/blogs').send(blogToAdd)
-  const response = await api.get('/api/blogs')
-  const mappedResponse = response.body.map(({title, author, url, likes}) => ({title, author, url, likes}))
-  blogToAdd.likes = 0;
-  expect(mappedResponse).toContainEqual(blogToAdd)
-})
-
-test('missing title and url results in 400 error code', async () => {
-  const blogToAdd = {
-    "author": "test new blog",
-    "likes": 2
-  }
-
-  await api.post('/api/blogs').send(blogToAdd).expect(400)
-})

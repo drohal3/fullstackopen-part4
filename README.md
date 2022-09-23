@@ -218,3 +218,14 @@ Make the required changes to the code so that it passes the test.
 
 **Solution:**
 Test and needed changes implemented.
+
+## Exercise 4.13 Blog list expansions, step1
+**Task:**
+Implement functionality for deleting a single blog post resource.
+
+Use the async/await syntax. Follow [RESTful](https://fullstackopen.com/en/part3/node_js_and_express#rest) conventions when defining the HTTP API.
+
+Implement tests for the functionality.
+
+**Solution:**
+Delete and test implemented.
