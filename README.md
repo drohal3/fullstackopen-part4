@@ -229,3 +229,16 @@ Implement tests for the functionality.
 
 **Solution:**
 Delete and test implemented.
+
+## Exercise 4.14 Blog list expansions, step2
+**Task:**
+Implement functionality for updating the information of an individual blog post.
+
+Use async/await.
+
+The application mostly needs to update the amount of likes for a blog post. You can implement this functionality the same way that we implemented updating notes in part 3.
+
+Implement tests for the functionality.
+
+**Solution:**
+PUT and tests implemented.

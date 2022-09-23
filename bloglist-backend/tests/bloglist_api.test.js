@@ -45,7 +45,6 @@ describe('blog api', () => {
   })
 
 
-
   test('id is the identifier', async () => {
     const response = await api.get('/api/blogs')
     expect(response.body[0].id).toBeDefined()
@@ -99,6 +98,33 @@ describe('blog api', () => {
     const response = await api.get('/api/blogs')
     expect(response.body).toHaveLength(initDbResponse.body.length - 1)
     expect(response.body).not.toContainEqual(blogToRemove)
+  })
+
+  test('updated likes are saved', async () => {
+    const initDbResponse = await api.get('/api/blogs')
+    const blogToUpdate = initDbResponse.body[0]
+    const newLikes = blogToUpdate.likes + 10
+    await api.put(`/api/blogs/${blogToUpdate.id}`).send({likes: newLikes})
+    blogToUpdate.likes = newLikes
+    const response = await api.get('/api/blogs')
+    expect(response.body).toHaveLength(initDbResponse.body.length)
+    expect(response.body).toContainEqual(blogToUpdate)
+  })
+
+  test('blog is indeed updated', async () => {
+    const initDbResponse = await api.get('/api/blogs')
+    const blogToUpdate = initDbResponse.body[0]
+    const newValues = {
+      title: blogToUpdate.title + ' updated',
+      author: blogToUpdate.author + ' updated',
+      url: blogToUpdate.url + '/updated',
+      likes: blogToUpdate.likes + 10
+    }
+    await api.put(`/api/blogs/${blogToUpdate.id}`).send(newValues)
+    newValues.id = blogToUpdate.id
+    const response = await api.get('/api/blogs')
+    expect(response.body).toHaveLength(initDbResponse.body.length)
+    expect(response.body).toContainEqual(newValues)
   })
 })
 
