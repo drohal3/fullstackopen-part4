@@ -242,3 +242,14 @@ Implement tests for the functionality.
 
 **Solution:**
 PUT and tests implemented.
+
+## Exercise 4.15: bloglist expansion, step3
+**Task:**
+Implement a way to create new users by doing a HTTP POST-request to address api/users. Users have username, password and name.
+
+Do not save passwords to the database as clear text, but use the bcrypt library like we did in part 4 chapter Creating new users.
+
+Implement a way to see the details of all users by doing a suitable HTTP request.
+
+**Solution:**
+User creation implemented in its own branch.
