@@ -12,16 +12,25 @@ usersRouter.get('/', async (request, response, next) => {
 })
 
 usersRouter.post('/', async (request, response, next) => {
-  const { username, name, password } = request.body
+  const {username, name, password} = request.body
+
+  if (password === undefined || password.length < 3) {
+    return response.status(400).json({error: "The password must be at least 3 characters long."})
+  }
 
   const salt = 10
   const passwordHash = await bcrypt.hash(password, salt)
 
   try {
-    const user = new User({username,name,passwordHash})
+    const user = new User({username, name, passwordHash})
     const newUser = await user.save()
     response.status(201).json(newUser)
   } catch (error) {
+    if (error.code === 11000) {
+      // Duplicate username
+      return response.status(422).json({error: 'User already exist!'});
+    }
+
     next(error)
   }
 })
