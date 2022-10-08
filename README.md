@@ -286,3 +286,10 @@ Implement token-based authentication according to part 4 chapter Token authentic
 
 **Solution:**
 login API implemented
+
+## Exercise 4.19: bloglist expansion, step7
+**Task:**
+Modify adding new blogs so that it is only possible if a valid token is sent with the HTTP POST request. The user identified by the token is designated as the creator of the blog.
+
+**Solution:**
+Implemented
