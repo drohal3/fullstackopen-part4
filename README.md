@@ -322,3 +322,21 @@ next()
 
 **Solution:**
 Token extractor implemented as middleware
+
+## Exercise 4.21*: bloglist expansion, step9
+**Task:**
+Change the delete blog operation so that a blog can be deleted only by the user who added the blog. Therefore, deleting a blog is possible only if the token sent with the request is the same as that of the blog's creator.
+
+If deleting a blog is attempted without a token or by a wrong user, the operation should return a suitable status code.
+
+Note that if you fetch a blog from the database,
+```
+const blog = await Blog.findById(...)
+```
+the field blog.user does not contain a string, but an Object. So if you want to compare the id of the object fetched from the database and a string id, normal comparison operation does not work. The id fetched from the database must be parsed into a string first.
+```
+if ( blog.user.toString() === userid.toString() ) ...
+```
+
+**Solution:**
+Solution implemented
