@@ -15,7 +15,12 @@ mongoose.connect(url)
   })
 
 const blogSchema = new mongoose.Schema({
-  title: {type:String}, author: String, url: {type: String}, likes: {type: Number, default: 0}
+  title: {type: String}, author: String, url: {type: String}, likes: {
+    type: Number, default: 0
+  }, user: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User'
+  }
 })
 
 blogSchema.set('toJSON', {
@@ -26,5 +31,5 @@ blogSchema.set('toJSON', {
   }
 })
 
-module.exports = mongoose.model('Blogs', blogSchema)
+module.exports = mongoose.model('Blog', blogSchema)
 

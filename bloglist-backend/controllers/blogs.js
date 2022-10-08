@@ -1,9 +1,10 @@
 const blogsRouter = require('express').Router()
 const Blog = require('../models/blog')
+const User = require('../models/user')
 
 blogsRouter.get('/', async (request, response, next) => {
   try {
-    const blogs = await Blog.find({})
+    const blogs = await Blog.find({}).populate("user",{username: 1, name: 1, id: 1})
     response.json(blogs)
   } catch (error) {
     next(error)
@@ -15,8 +16,15 @@ blogsRouter.post('/', async (request, response, next) => {
     if (request.body.title === undefined && request.body.url === undefined) {
       response.status(400).json({error: 'title or url required'})
     }
-    const blog = new Blog(request.body)
+
+    const user = await  User.findOne({})
+    console.log(user.id)
+    const blogdata = {...request.body,...{user: user.id}}
+    console.log("blogData",blogdata)
+    const blog = new Blog(blogdata)
     const newBlog = await blog.save()
+    user.blogs = user.blogs.concat(newBlog._id)
+    await user.save()
     response.status(201).json(newBlog)
   } catch (error) {
     next(error)
