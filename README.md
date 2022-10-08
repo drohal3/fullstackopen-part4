@@ -279,3 +279,10 @@ and listing all users also displays the blogs created by each user
 
 **Solution:**
 Users and Blog apis extended.
+
+## Exercise 4.18: bloglist expansion, step6
+**Task:**
+Implement token-based authentication according to part 4 chapter Token authentication.
+
+**Solution:**
+login API implemented
