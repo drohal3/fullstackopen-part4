@@ -293,3 +293,32 @@ Modify adding new blogs so that it is only possible if a valid token is sent wit
 
 **Solution:**
 Implemented
+
+## Exercise 4.20*: bloglist expansion, step8
+[This example](https://fullstackopen.com/en/part4/token_authentication) from part 4 shows taking the token from the header with the getTokenFrom helper function.
+
+If you used the same solution, refactor taking the token to a middleware. The middleware should take the token from the Authorization header and place it to the token field of the request object.
+
+In other words, if you register this middleware in the app.js file before all routes
+```
+app.use(middleware.tokenExtractor)
+```
+routes can access the token with request.token:
+```
+blogsRouter.post('/', async (request, response) => {
+// ..
+const decodedToken = jwt.verify(request.token, process.env.SECRET)
+// ..
+})
+```
+Remember that a normal middleware is a function with three parameters, that at the end calls the last parameter next in order to move the control to next middleware:
+```
+const tokenExtractor = (request, response, next) => {
+// code that extracts the token
+
+next()
+}
+```
+
+**Solution:**
+Token extractor implemented as middleware
