@@ -388,3 +388,12 @@ router.post('/', userExtractor, async (request, response) => {
 
 **Solution:**
 User extractor implemented as middleware
+
+## Exercise 4.23*: bloglist expansion, step11
+**Task:**
+After adding token based authentication the tests for adding a new blog broke down. Fix the tests. Also write a new test to ensure adding a blog fails with the proper status code 401 Unauthorized if a token is not provided.
+
+[This](https://github.com/visionmedia/supertest/issues/398) is most likely useful when doing the fix.
+
+**Solution:**
+
